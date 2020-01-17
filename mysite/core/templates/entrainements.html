@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+
+<!-- Start your project here-->  
+{% block content %}
+
+
+<div class="container p-3">
+  <div class="tab">
+    <button class="tablinks bg-info text-white" onclick="openCity(event, 'image_media')" style="border-left: 2px solid white !important;">Images</button>
+    <button class="tablinks bg-info text-white" onclick="openCity(event, 'video_media')">Videos</button>    
+  </div>
+  
+  <!-- Tab content -->
+  
+  
+  <div id="image_media" class="tabcontent wow bounce" style="display: block;">
+    {% if medias %}
+    <div class="container-fluid mt-5 p-3 bg-dark" style="max-height: 100vh;">
+      {% for media in medias %}
+        <div class="mySlides">
+          <div class="numbertext"> {{ media.id }} / {{ count_media }}</div>
+          <img src="/{{ media.url_image.url}}" style="width:100%; height: 379px;" alt="{{ media.instruction }}">
+          <!-- <video src="/{{ media.u.url}}" style="width:100%; height: 379px;" alt="{{ media.instruction }}" controls></video> -->
+          <div class="overlay">
+            <div id="caption">{{ media.instruction }}</div>
+          </div>
+        </div>
+      {% endfor %}
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      <!-- Image text -->
+      <div class="caption-container">
+        <p id="caption">{{ media.instruction }}</p>
+      </div>
+    
+      <div class="row m-0">
+        {% for media in media %}
+          <div class="column m-auto" style="height: 100px">
+            <img class="demo cursor" src="/{{ media.url_image.url }}" style="width:100%; height: 100%;" onclick="currentSlide({{ media.id }})" alt="{{ media.instruction }}">
+          </div>  
+        {% endfor %}        
+      </div>  
+    </div>  
+    
+      {% else %}
+    
+      <div class="container pt-5">
+          <div class="bg-info text-white text-center wow slideInLeft" style="font-size: 2.6rem; padding:3.625rem;">
+            Aucune Image enregistrée pour le moment <br>
+            <!-- <i class="fa fa-search fa-2 x"></i> -->
+            <a class="btn btn-success" href="http://localhost:8000/admin/core/media_training/add/">Ajouter</a> <a class="btn btn-danger " href="http://localhost:8000">Retourner</a>
+          </div>
+      </div>
+    
+    {% endif %}
+  </div>
+    
+  
+  
+  
+  <div id="video_media" class="tabcontent">
+    {% if media_videos %}
+    <div class="container-fluid mt-5 m p-3 bg-dark" style="max-height: 100vh;">
+      {% for media_video in media_videos %}
+        <div class="mySlides">
+          <div class="numbertext"> {{ media_video.id }} / {{ count_media_video }}</div>
+          <!-- <img src="/{{ media_video.videofile.url}}" style="width:100%; height: 379px;" alt="{{ media_video.instruction }}"> -->
+          <video src="/{{ media_video.videofile.url}}" style="width:100%; height: 379px;" alt="{{ media_video.instruction }}" controls></video>
+          <!-- <div class="overlay">
+            <div id="caption">{{ media_video.instruction }}</div>
+          </div> -->
+        </div>
+      {% endfor %}
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      <!-- Image text -->
+      <div class="caption-container">
+        <p id="caption">{{ media_video.instruction }}</p>
+      </div>
+    
+      <!-- <div class="row m-0">
+        {% for media_video in media_videos %}
+          <div class="column m-auto" style="height: 100px">
+            <img class="demo cursor" src="/{{ media_video.videofile.url }}" style="width:100%; height: 100%;" onclick="currentSlide({{media_video.id}})" alt="{{ media_video.instruction }}">
+          </div>  
+        {% endfor %}        
+      </div> -->
+      {% else %}
+    
+      <div class="container pt-5">
+          <div class="bg-info text-white text-center wow slideInLeft" style="font-size: 2.6rem; padding:3.625rem;">
+            Aucune video enregistrée pour le moment <br>
+            <!-- <i class="fa fa-search fa-2 x"></i> -->
+            <a href="http://localhost:8000/admin/core/media_training_video/add/" class="btn btn-success">Ajouter</a> <a class="btn btn-danger " href="http://localhost:8000">Retourner</a>
+          </div>
+      </div>    
+    </div>
+    {% endif %}
+  </div>
+  </div>
+
+
+  
+
+  
+{% endblock content %}
+
+<!-- End your project here-->
